@@ -32,8 +32,12 @@ def register_handle(request):
 
 def register_exist(request):
     uname = request.GET.get('uname')
-    count = UserInfo.objects.filter(uname ==uname).count()
+    count = UserInfo.objects.filter(uname ==uname).count()  #count为0或1
+    print(count)
     return JsonResponse({'count': count})
 
 def login(request):
     return render(request,'df_user/login.html')
+
+def login_handle(request):
+    pass
