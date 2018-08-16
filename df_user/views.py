@@ -1,3 +1,4 @@
+#coding=utf-8
 from django.shortcuts import render
 from django.http import *
 from .models import *
@@ -40,4 +41,16 @@ def login(request):
     return render(request,'df_user/login.html')
 
 def login_handle(request):
-    pass
+    #接收请求的信息
+    post = request.POST
+    uname = post.get('username')
+    upwd = post.get('pwd')
+    jizhu = post.get('jizhu',0)  # 默认值为0   如果勾选框选择了就提交了1
+    #根据用户名查询对象
+    users = UserInfo.objects.filter(uname=uname) #如果没有查询到返回[]
+    print(uname)
+    if len(users) ==1:
+       pass
+
+
+    return render(request,'df_user/index.html')
