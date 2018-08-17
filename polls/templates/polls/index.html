@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+
+{% if  last_question_list %}
+    <ul>
+        {% for question in last_question_list %}
+            {#  链接是硬编码的：#}
+            {#            <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>#}
+            {# 因为你在 polls.urls 的 url() 函数中通过 name 参数为 URL 定义了名字，你可以使用 {% url %} 标签代替它：#}
+            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+            {#            polls:detail   polls即是在urls中定义的app_name #}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+
+</body>
+</html>

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'df_user',
     'df_goods',
     'tinymce',
+    'polls',
+    # 'polls.apps.PollsConfig',  #完整安装路径
 ]
 
 MIDDLEWARE = [
@@ -79,7 +81,7 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django',
+        'NAME': 'shop',
         'USER': 'root',
         'PASSWORD': 'zkyr1006',
         'HOST': '111.207.68.150',
@@ -118,7 +120,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False #如果USE_TZ设置为True时，Django会使用系统默认设置的时区，即America/Chicago，
+                # 此时的TIME_ZONE不管有没有设置都不起作用。
 
 
 # Static files (CSS, JavaScript, Images)
