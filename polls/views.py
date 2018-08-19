@@ -4,6 +4,7 @@ from .models import Question, Choice
 from django.template import loader
 from django.urls import reverse
 from django.views import generic
+from django.utils import timezone
 
 
 # #
@@ -93,8 +94,16 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last ten published questions"""
-        return Question.objects.order_by('-pub_date')[:10]
+        # 我们需要改进 get_queryset() 方法，让他它能通过将 Question 的 pub_data 属性与 timezone.now() 相比较
+        # 来判断是否应该显示此 Question。
+        # return Question.objects.order_by('-pub_date')[:10]
+        return Question.objects.filter(
+            pub_date__lte=timezone.now()
+        ).order_by('-pub_date')[:10]  # 倒序排列
 
+
+# returns a queryset containing Questions whose pub_date is less than or
+# equal to - that is, earlier than or equal to - timezone.now.
 
 class DetailView(generic.DetailView):
     # 每个通用视图需要知道它将作用于哪个模型。 这由 model 属性提供
@@ -103,7 +112,20 @@ class DetailView(generic.DetailView):
     # 默认名字:<app name>/<model name>_detail.html 的模板。在我们的例子中，默认它将使用 "polls/question_detail.html" 模板
     template_name = 'polls/detail.html'
 
+    # 就算在发布日期时未来的那些投票不会在目录页 index 里出现，但是如果用户知道或者猜到正确的 URL ，
+    # 还是可以访问到它们。所以我们得在 DetailView 里增加一些约束：
+    def get_queryset(self):
+        """
+        Excludes any questions that aren't published yet.
+        :return:
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
+
 
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
+
+    def get_queryset(self):
+        """  Excludes any questions that aren't published yet."""
+        return Question.objects.filter(pub_date__lte=timezone.now())
