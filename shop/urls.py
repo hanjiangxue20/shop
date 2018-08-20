@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from df_user import views as user_view
+from django.conf import settings
 
 app_name = 'shop'
 urlpatterns = [
@@ -27,3 +28,7 @@ urlpatterns = [
     path('polls/', include('polls.urls')),  # 投票
     path('blog/', include('blog.urls')),  # blog
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns.append(path('__debug__/',include(debug_toolbar.urls)))

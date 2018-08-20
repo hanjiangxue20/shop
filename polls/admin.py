@@ -20,7 +20,7 @@ class QuestionAdmin(admin.ModelAdmin):
     #     (None, {'fields': ['question_text']}),
     #     ('Date information', {'fields': ['pub_date']}),
     # ]
-    fieldsets = [
+    fieldsets = [  #分类显示
         (None, {'fields': ['question_text']}),
         ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
