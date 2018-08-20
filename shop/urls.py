@@ -15,11 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from df_user import views as user_view
 
+app_name = 'shop'
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', user_view.login, name='login'),
     path('tinymce/', include('tinymce.urls')),
     path('user/', include('df_user.urls'), name='user'),  # name :为你的 URL 取名能使你在 Django 的任意地方唯一地引用它
     path('goods/', include('df_goods.urls')),
-    path('polls/', include('polls.urls')),  #投票
+    path('polls/', include('polls.urls')),  # 投票
+    path('blog/', include('blog.urls')),  # blog
 ]
