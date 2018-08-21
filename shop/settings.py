@@ -26,7 +26,7 @@ SECRET_KEY = 'jl68sas7+w)&$o(!r&s#f5e70g83#if=wtvpb7*=vn$5f+3t)t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # 调试工具
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
+# DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar.apps.DebugToolbarConfig',  # 调试工具App
+    # 'debug_toolbar.apps.DebugToolbarConfig',  # 调试工具App
+    'users',#用户注册系统
     'df_user',
     'df_goods',
     'tinymce',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'blog',
     # 'polls.apps.PollsConfig',  #完整安装路径
 ]
+AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,7 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',  # 调试工具中间件
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',  # 调试工具中间件
 ]
 
 ROOT_URLCONF = 'shop.urls'
@@ -89,10 +91,26 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'zkyr1006',
         'HOST': '111.207.68.150',
-        # 'HOST': 'localhost',
         'PORT': '3306',
     }
 }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://192.168.1.137:6379/10",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds  套接字超时  socket 建立连接超时设置
+            # "SOCKET_TIMEOUT": 5,  # in seconds  连接建立后的读写操作超时设置
+            # "IGNORE_EXCEPTIONS": True,# redis 只作为缓存使用, 当它关闭时如果你不希望触发异常  忽略连接异常
+            "PASSWORD": "zkyr1006"
+        }
+    }
+}
+REDIS_TIMEOUT=7*24*60*60
+CUBES_REDIS_TIMEOUT=60*60
+NEVER_REDIS_TIMEOUT=365*24*60*60
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -145,54 +163,54 @@ TINYMCE_DEFAULT_CONFIG = {
     'height': 400,
 }
 
-
-DEBUG_TOOLBAR_PANELS = [
-    'debug_toolbar.panels.versions.VersionsPanel',
-    'debug_toolbar.panels.timer.TimerPanel',
-    'debug_toolbar.panels.settings.SettingsPanel',
-    'debug_toolbar.panels.headers.HeadersPanel',
-    'debug_toolbar.panels.request.RequestPanel',
-    'debug_toolbar.panels.sql.SQLPanel',
-    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-    'debug_toolbar.panels.templates.TemplatesPanel',
-    'debug_toolbar.panels.cache.CachePanel',
-    'debug_toolbar.panels.signals.SignalsPanel',
-    'debug_toolbar.panels.logging.LoggingPanel',
-    'debug_toolbar.panels.redirects.RedirectsPanel',
-]
-CONFIG_DEFAULTS = {
-    # Toolbar options
-    'DISABLE_PANELS': {'debug_toolbar.panels.redirects.RedirectsPanel'},
-    'INSERT_BEFORE': '</body>',
-    'JQUERY_URL': '//cdn.bootcss.com/jquery/2.1.4/jquery.min.js',
-    'RENDER_PANELS': None,
-    'RESULTS_CACHE_SIZE': 10,
-    'ROOT_TAG_EXTRA_ATTRS': '',
-    'SHOW_COLLAPSED': False,
-    'SHOW_TOOLBAR_CALLBACK': 'debug_toolbar.middleware.show_toolbar',
-    # Panel options
-    'EXTRA_SIGNALS': [],
-    'ENABLE_STACKTRACES': True,
-    'HIDE_IN_STACKTRACES': (
-        'socketserver' if six.PY3 else 'SocketServer',
-        'threading',
-        'wsgiref',
-        'debug_toolbar',
-        'django',
-    ),
-    'PROFILER_MAX_DEPTH': 10,
-    'SHOW_TEMPLATE_CONTEXT': True,
-    'SKIP_TEMPLATE_PREFIXES': (
-        'django/forms/widgets/',
-        'admin/widgets/',
-    ),
-    'SQL_WARNING_THRESHOLD': 500,   # milliseconds
-}
-
-
-INTERNAL_IPS = ("127.0.0.1",)  # 调试工具的IP
+#
+# DEBUG_TOOLBAR_PANELS = [
+#     'debug_toolbar.panels.versions.VersionsPanel',
+#     'debug_toolbar.panels.timer.TimerPanel',
+#     'debug_toolbar.panels.settings.SettingsPanel',
+#     'debug_toolbar.panels.headers.HeadersPanel',
+#     'debug_toolbar.panels.request.RequestPanel',
+#     'debug_toolbar.panels.sql.SQLPanel',
+#     'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+#     'debug_toolbar.panels.templates.TemplatesPanel',
+#     'debug_toolbar.panels.cache.CachePanel',
+#     'debug_toolbar.panels.signals.SignalsPanel',
+#     'debug_toolbar.panels.logging.LoggingPanel',
+#     'debug_toolbar.panels.redirects.RedirectsPanel',
+# ]
+# CONFIG_DEFAULTS = {
+#     # Toolbar options
+#     'DISABLE_PANELS': {'debug_toolbar.panels.redirects.RedirectsPanel'},
+#     'INSERT_BEFORE': '</body>',
+#     'JQUERY_URL': '//cdn.bootcss.com/jquery/2.1.4/jquery.min.js',
+#     'RENDER_PANELS': None,
+#     'RESULTS_CACHE_SIZE': 10,
+#     'ROOT_TAG_EXTRA_ATTRS': '',
+#     'SHOW_COLLAPSED': False,
+#     'SHOW_TOOLBAR_CALLBACK': 'debug_toolbar.middleware.show_toolbar',
+#     # Panel options
+#     'EXTRA_SIGNALS': [],
+#     'ENABLE_STACKTRACES': True,
+#     'HIDE_IN_STACKTRACES': (
+#         'socketserver' if six.PY3 else 'SocketServer',
+#         'threading',
+#         'wsgiref',
+#         'debug_toolbar',
+#         'django',
+#     ),
+#     'PROFILER_MAX_DEPTH': 10,
+#     'SHOW_TEMPLATE_CONTEXT': True,
+#     'SKIP_TEMPLATE_PREFIXES': (
+#         'django/forms/widgets/',
+#         'admin/widgets/',
+#     ),
+#     'SQL_WARNING_THRESHOLD': 500,   # milliseconds
+# }
+# INTERNAL_IPS = ("127.0.0.1",)  # 调试工具的IP
 
 
+
+#打印sql功能
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -208,3 +226,33 @@ LOGGING = {
         },
     },
 }
+#用户注册系统
+USERS_REGISTRATION_OPEN = True
+
+USERS_VERIFY_EMAIL = True
+
+USERS_AUTO_LOGIN_ON_ACTIVATION = True
+
+USERS_EMAIL_CONFIRMATION_TIMEOUT_DAYS = 3
+
+# Specifies minimum length for passwords:
+USERS_PASSWORD_MIN_LENGTH = 5
+
+# Specifies maximum length for passwords:
+USERS_PASSWORD_MAX_LENGTH = None
+
+# the complexity validator, checks the password strength
+USERS_CHECK_PASSWORD_COMPLEXITY = True
+
+USERS_SPAM_PROTECTION = False  # important!
+
+#  ---------------------------------------------------------
+#  Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.163.com'  # 如果是 163 改成 smtp.163.com
+EMAIL_PORT = 25  # smtp服务固定的端口是25
+EMAIL_HOST_USER = 'chengnian_20@163.com' # 发送邮件的邮箱
+EMAIL_HOST_PASSWORD = 'zkyr1006'  # #在邮箱中设置的客户端授权密码
+EMAIL_FROM = 'cheng<chengnian_20@163.com>'

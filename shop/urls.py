@@ -27,6 +27,7 @@ urlpatterns = [
     path('goods/', include('df_goods.urls')),
     path('polls/', include('polls.urls')),  # 投票
     path('blog/', include('blog.urls')),  # blog
+    path('accounts/',include('users.urls')),
 ]
 
 if settings.DEBUG:

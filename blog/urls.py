@@ -3,11 +3,11 @@
 # Author: 2038770992qq.com
 
 from django.urls import path,include
-from .views import *
+from blog import views
 
 
 app_name='blog'
 
 urlpatterns=[
-    # path(''),
+    path('email/',views.sendMail,name='email'),
 ]
