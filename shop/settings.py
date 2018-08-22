@@ -30,8 +30,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# Application definition
+#celery settings
+# import djcelery
+# djcelery.setup_loader()
+CELERY_BROKER_URL='redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+# CELERY_RESULT_BACKEND = 'django-db'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,6 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'debug_toolbar.apps.DebugToolbarConfig',  # 调试工具App
     'users',#用户注册系统
+    'djcelery',
+    'django_celery_results',
     'df_user',
     'df_goods',
     'tinymce',
@@ -256,3 +268,4 @@ EMAIL_PORT = 25  # smtp服务固定的端口是25
 EMAIL_HOST_USER = 'chengnian_20@163.com' # 发送邮件的邮箱
 EMAIL_HOST_PASSWORD = 'zkyr1006'  # #在邮箱中设置的客户端授权密码
 EMAIL_FROM = 'cheng<chengnian_20@163.com>'
+
