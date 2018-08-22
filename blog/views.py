@@ -3,7 +3,7 @@ from .models import Blog,Author,Entry
 from django.conf import settings
 from django.core.mail import send_mail
 from django.http import HttpResponse,JsonResponse
-
+from .tasks import incr_readtime
 
 def sendMail(request):
     msg = '<a href="http://www.baidu.com" target="_blank">点击激活账户</a>'
@@ -16,4 +16,9 @@ def sendMail(request):
     return HttpResponse('激活邮件已经发送，请注意查收！')
 
 
+class DetailView():
+    pass
 
+class ArticlDetailView(DetailView):
+    def get(self):
+        incr_readtime.delay(self)

@@ -31,10 +31,10 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 #celery settings
-# import djcelery
-# djcelery.setup_loader()
-CELERY_BROKER_URL='redis://127.0.0.1:6379/0'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+import djcelery
+djcelery.setup_loader() #目的是设定celery的加载器
+CELERY_BROKER_URL='amqp://zkyr:zkyr1006@111.207.68.150:5672/myvhost '#'redis://zkyr1006@111.207.68.150:6379/10'  #redis://[:password]@localhost:6379/0
+CELERY_RESULT_BACKEND = 'django-db'#'amqp://zkyr:zkyr1006@111.207.68.150:5672/myvhost'#'redis://111.207.68.150:6379/10'
 # CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'debug_toolbar.apps.DebugToolbarConfig',  # 调试工具App
-    'users',#用户注册系统
+    # 'users',#用户注册系统
     'djcelery',
     'django_celery_results',
     'df_user',
@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'blog',
     # 'polls.apps.PollsConfig',  #完整安装路径
 ]
-AUTH_USER_MODEL = 'users.User'
+# AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -238,25 +238,25 @@ LOGGING = {
         },
     },
 }
-#用户注册系统
-USERS_REGISTRATION_OPEN = True
-
-USERS_VERIFY_EMAIL = True
-
-USERS_AUTO_LOGIN_ON_ACTIVATION = True
-
-USERS_EMAIL_CONFIRMATION_TIMEOUT_DAYS = 3
-
-# Specifies minimum length for passwords:
-USERS_PASSWORD_MIN_LENGTH = 5
-
-# Specifies maximum length for passwords:
-USERS_PASSWORD_MAX_LENGTH = None
-
-# the complexity validator, checks the password strength
-USERS_CHECK_PASSWORD_COMPLEXITY = True
-
-USERS_SPAM_PROTECTION = False  # important!
+# #用户注册系统
+# USERS_REGISTRATION_OPEN = False
+#
+# USERS_VERIFY_EMAIL = True
+#
+# USERS_AUTO_LOGIN_ON_ACTIVATION = True
+#
+# USERS_EMAIL_CONFIRMATION_TIMEOUT_DAYS = 3
+#
+# # Specifies minimum length for passwords:
+# USERS_PASSWORD_MIN_LENGTH = 5
+#
+# # Specifies maximum length for passwords:
+# USERS_PASSWORD_MAX_LENGTH = None
+#
+# # the complexity validator, checks the password strength
+# USERS_CHECK_PASSWORD_COMPLEXITY = True
+#
+# USERS_SPAM_PROTECTION = False  # important!
 
 #  ---------------------------------------------------------
 #  Email
