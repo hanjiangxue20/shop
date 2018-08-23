@@ -35,10 +35,11 @@ import djcelery
 
 djcelery.setup_loader()  # 目的是设定celery的加载器
 CELERY_TIMEZONE = 'Asia/Shanghai'
-CELERY_BROKER_URL='amqp://zkyr:zkyr1006@192.168.1.137:5672/myvhost'#'redis://:zkyr1006@111.207.68.150:6379/10'
+# CELERY_BROKER_URL='amqp://zkyr:zkyr1006@111.207.68.150:5672/myvhost'#'redis://:zkyr1006@111.207.68.150:6379/10'
 # CELERY_BROKER_URL = 'redis://:zkyr1006@127.0.0.1:6379/10'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
 # CELERY_RESULT_BACKEND = 'amqp://zkyr:zkyr1006@192.168.1.137:5672/myvhost'#'redis://:zkyr1006@111.207.68.150:6379/10'
-# CELERY_RESULT_BACKEND = 'django-db'  # 'django-cache'
+CELERY_RESULT_BACKEND = 'django-db'  # 'django-cache'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -113,7 +114,8 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://:zkyr1006@127.0.0.1:6379/12",
+        # "LOCATION": "redis://:zkyr1006@127.0.0.1:6379/12",
+        "LOCATION": "redis://127.0.0.1:6379/12",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds  套接字超时  socket 建立连接超时设置
