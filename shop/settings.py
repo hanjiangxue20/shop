@@ -30,15 +30,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-#celery settings
+# celery settings
 import djcelery
-djcelery.setup_loader() #目的是设定celery的加载器
-CELERY_BROKER_URL='amqp://zkyr:zkyr1006@111.207.68.150:5672/myvhost '#'redis://zkyr1006@111.207.68.150:6379/10'  #redis://[:password]@localhost:6379/0
-CELERY_RESULT_BACKEND = 'django-db'#'amqp://zkyr:zkyr1006@111.207.68.150:5672/myvhost'#'redis://111.207.68.150:6379/10'
-# CELERY_RESULT_BACKEND = 'django-db'
+
+djcelery.setup_loader()  # 目的是设定celery的加载器
+CELERY_TIMEZONE = 'Asia/Shanghai'
+CELERY_BROKER_URL='amqp://zkyr:zkyr1006@192.168.1.137:5672/myvhost'#'redis://:zkyr1006@111.207.68.150:6379/10'
+# CELERY_BROKER_URL = 'redis://:zkyr1006@127.0.0.1:6379/10'
+# CELERY_RESULT_BACKEND = 'amqp://zkyr:zkyr1006@192.168.1.137:5672/myvhost'#'redis://:zkyr1006@111.207.68.150:6379/10'
+# CELERY_RESULT_BACKEND = 'django-db'  # 'django-cache'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
-# CELERY_RESULT_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 # Application definition
@@ -110,7 +113,7 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.1.137:6379/10",
+        "LOCATION": "redis://:zkyr1006@127.0.0.1:6379/12",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds  套接字超时  socket 建立连接超时设置
@@ -120,9 +123,9 @@ CACHES = {
         }
     }
 }
-REDIS_TIMEOUT=7*24*60*60
-CUBES_REDIS_TIMEOUT=60*60
-NEVER_REDIS_TIMEOUT=365*24*60*60
+REDIS_TIMEOUT = 7 * 24 * 60 * 60
+CUBES_REDIS_TIMEOUT = 60 * 60
+NEVER_REDIS_TIMEOUT = 365 * 24 * 60 * 60
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -162,10 +165,10 @@ USE_TZ = False  # 如果USE_TZ设置为True时，Django会使用系统默认设�
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, '/home/zkfr/py/shop/static'),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, '/home/zkfr/py/shop/static')
 # MEDIA_ROOT = os.path.join(BASE_DIR,'/var/www/shop/static') #部署时建议部署到nginx等配置的静态文件目录
 
 # #富文本编辑器配置
@@ -221,8 +224,7 @@ TINYMCE_DEFAULT_CONFIG = {
 # INTERNAL_IPS = ("127.0.0.1",)  # 调试工具的IP
 
 
-
-#打印sql功能
+# 打印sql功能
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -261,11 +263,9 @@ LOGGING = {
 #  ---------------------------------------------------------
 #  Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
 # EMAIL_USE_SSL = True
 EMAIL_HOST = 'smtp.163.com'  # 如果是 163 改成 smtp.163.com
 EMAIL_PORT = 25  # smtp服务固定的端口是25
-EMAIL_HOST_USER = 'chengnian_20@163.com' # 发送邮件的邮箱
+EMAIL_HOST_USER = 'chengnian_20@163.com'  # 发送邮件的邮箱
 EMAIL_HOST_PASSWORD = 'zkyr1006'  # #在邮箱中设置的客户端授权密码
 EMAIL_FROM = 'cheng<chengnian_20@163.com>'
-

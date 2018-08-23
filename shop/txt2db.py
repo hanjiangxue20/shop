@@ -40,7 +40,7 @@ def main():
     # BlogList = [Blog(title=line.split('****')[0], content=line.split('****')[1]) for line in f]
     Author.objects.bulk_create(AuthorList)
 
-
-if __name__ == '__main__':
-    main()
-    print('Done!')
+#
+# if __name__ == '__main__':
+#     main()
+#     print('Done!')

@@ -3,10 +3,11 @@ from .models import Blog,Author,Entry
 from django.conf import settings
 from django.core.mail import send_mail
 from django.http import HttpResponse,JsonResponse
-from .tasks import incr_readtime
+from .tasks import sum
 
 def sendMail(request):
     msg = '<a href="http://www.baidu.com" target="_blank">点击激活账户</a>'
+
     send_mail('测试邮件',
               '',
               settings.EMAIL_FROM,
@@ -21,4 +22,5 @@ class DetailView():
 
 class ArticlDetailView(DetailView):
     def get(self):
-        incr_readtime.delay(self)
+        # log_result.delay(self)
+        pass
