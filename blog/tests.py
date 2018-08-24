@@ -9,16 +9,16 @@ from django.test import TestCase
 # 只能写出来整体的框架，递归调用的返回值想不明白。面试结束的时候，面试官说我三道题给出的算法都很优。
 
 
-alist=[1,3,6,4,2,7,5,6,7,8,9,]
-T=12
-
-def fun(li=[],  T=T):
-    blist=[]
-    for i in range(len(li)):
-        for j in range(len(li)):
-            if (li[i] +li[j]==T) & (i<j):
-                blist.append([li[i],li[j]])
-    return blist
-
-
-print(fun(alist,T=T))
+# alist=[1,3,6,4,2,7,5,6,7,8,9,]
+# T=12
+#
+# def fun(li=[],  T=T):
+#     blist=[]
+#     for i in range(len(li)):
+#         for j in range(len(li)):
+#             if (li[i] +li[j]==T) & (i<j):
+#                 blist.append([li[i],li[j]])
+#     return blist
+#
+#
+# print(fun(alist,T=T))

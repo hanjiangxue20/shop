@@ -6,8 +6,10 @@ from django.urls import path,include
 from blog import views
 
 
+
 app_name='blog'
 
 urlpatterns=[
     path('email/',views.sendMail,name='email'),
+    path('view/',views.BlogilView,name='blog_view'),
 ]

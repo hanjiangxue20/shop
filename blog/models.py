@@ -51,3 +51,11 @@ class Entry(models.Model):
 
     def __str__(self):  # __str__ on Python 3
         return self.headline
+
+
+class Add(models.Model):
+    task_id= models.CharField(max_length=128)
+    first = models.IntegerField() # 第一加数
+    second = models.IntegerField()
+    result= models.IntegerField()#结果
+    log_date=models.DateTimeField() #存储开始时间
