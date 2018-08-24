@@ -10,5 +10,5 @@ def BlogilView(request):
     # sendMail()
     sendMail.delay()
     # 其他行为
-    blog = Blog.objects.values('name')
-    return HttpResponse(json.dumps(list(blog)), content_type='application/json')
+    data = list(Blog.objects.values('name'))
+    return HttpResponse(json.dumps(data), content_type='application/json')
