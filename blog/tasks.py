@@ -2,15 +2,15 @@
 # -*-coding:utf-8-*-
 # Author: 2038770992qq.com
 from __future__ import absolute_import
-
+from django.core.mail import send_mail
 # from django_redis import cache
-
 from shop import celery_app
 from celery import shared_task
 from celery.utils.log import get_task_logger
 from time import sleep
 from .models import *
 from django.db.models import F
+from django.conf import settings
 
 logger= get_task_logger(__name__)
 # app =Celery('tasks',broker='redis://127.0.0.1:6379/5',backend='redis://127.0.0.1:6379/5')
@@ -33,5 +33,16 @@ def incr_readtime(article_id):
 def create_blog(name,tagline):
     Blog.objects.create(name=name,tagline=tagline)
 
-# @celery_app.task()
-
+@celery_app.task
+def sendMail():
+    msg = '<a href="http://www.baidu.com" target="_blank">点击激活账户</a>'
+    send_mail('测试邮件',
+              '',
+              settings.EMAIL_FROM,
+              ['2469257690@qq.com', ],
+              html_message=msg
+              )
+    sleep(5)
+    print('send email success!')
+    return True
+    # return HttpResponse('激活邮件已经发送，请注意查收！')
