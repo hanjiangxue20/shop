@@ -1,16 +1,17 @@
 #!/usr/bin/python3
 # -*-coding:utf-8-*-
 # Author: 2038770992qq.com
-from __future__ import absolute_import
+# from __future__ import absolute_import
 from django.core.mail import send_mail
 # from django_redis import cache
-from shop import celery_app
+
 from celery import shared_task
 from celery.utils.log import get_task_logger
 from time import sleep
 from .models import *
 from django.db.models import F
 from django.conf import settings
+from shop import celery_app
 
 logger= get_task_logger(__name__)
 # app =Celery('tasks',broker='redis://127.0.0.1:6379/5',backend='redis://127.0.0.1:6379/5')

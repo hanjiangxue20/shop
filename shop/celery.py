@@ -2,10 +2,13 @@
 # -*-coding:utf-8-*-
 # Author: 2038770992qq.com
 
-from __future__ import absolute_import, unicode_literals
+# from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
 from django.conf import settings
+
+task_reject_on_worker_lost = True
+task_acks_late = True
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'shop.settings')
@@ -26,7 +29,7 @@ app = Celery('shop')
 #              broker='amqp://zkyr:zkyr1006@192.168.1.137:5672/myvhost',
 #              backend='redis://:zkyr1006@127.0.0.1:6379/10',
 #              )
-app.config_from_object('django.conf:settings',namespace='CELERY')  # Load task modules from all registered Django app configs.
+app.config_from_object('django.conf:settings')  # Load task modules from all registered Django app configs.
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
 
