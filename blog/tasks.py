@@ -2,12 +2,18 @@
 # -*-coding:utf-8-*-
 # Author: 2038770992qq.com
 from __future__ import absolute_import
+
+import datetime
+
+from celery.schedules import crontab
+from celery.task import periodic_task
 from django.core.mail import send_mail
 # from django_redis import cache
 from shop import celery_app
 from celery import shared_task
 from celery.utils.log import get_task_logger
 from time import sleep
+import time
 from .models import *
 from django.db.models import F
 from django.conf import settings
@@ -51,6 +57,17 @@ def myMail():
               ['2469257690@qq.com',],
               html_message=msg
               )
-    # sleep(2)
+    # sleep(5)
     print('send email success!')
+    return True
+
+
+# @periodic_task(run_every=3)  #3秒   定时周期任务：每三秒
+# @periodic_task(run_every=datetime.timedelta(hours=0,minutes=0,seconds=3))  #3秒   定时周期任务：每三秒
+# @periodic_task(run_every=crontab(minute='55',hour=20)) #定时：20:55分
+@periodic_task(run_every=crontab(minute='*/2')) #没隔2分钟=crontab(minute='0-59/2')  这个/号不是除以的意思。相当与range的第3个参数
+def some_task():
+    print('periodic task test!')
+    # sleep(5)
+    print('success:{}'.format(time.ctime()))
     return True
