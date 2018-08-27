@@ -44,8 +44,6 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
-CELERY_IMPORTS = ['blog.tasks',
-                  ]
 
 # Application definition
 INSTALLED_APPS = [
@@ -108,7 +106,8 @@ DATABASES = {
         'NAME': 'shop',
         'USER': 'root',
         'PASSWORD': 'zkyr1006',
-        'HOST': '111.207.68.150',
+        # 'HOST': '111.207.68.150',
+        'HOST': '192.168.1.137',
         'PORT': '3306',
     }
 }
