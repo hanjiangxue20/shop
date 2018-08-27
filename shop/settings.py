@@ -35,11 +35,11 @@ import djcelery
 
 djcelery.setup_loader()  # 目的是设定celery的加载器
 CELERY_TIMEZONE = 'Asia/Shanghai'
-# CELERY_BROKER_URL='amqp://zkyr:zkyr1006@111.207.68.150:5672/myvhost'#'redis://:zkyr1006@111.207.68.150:6379/10'
-# CELERY_BROKER_URL = 'redis://:zkyr1006@192.168.1.137:6379/10'
+# CELERY_BROKER_URL='redis://:zkyr1006@111.207.68.150:6379/10'#'amqp://zkyr:zkyr1006@111.207.68.150:5672/myvhost'
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+# CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
 # CELERY_RESULT_BACKEND = 'redis://:zkyr1006@192.168.1.137:6379/10'#'amqp://zkyr:zkyr1006@192.168.1.137:5672/myvhost'
-# CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'  # 'django-db'#'redis://localhost'#  # 'django-cache'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'  # 'django-db'#'redis://localhost'#  # 'django-cache'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -106,8 +106,8 @@ DATABASES = {
         'NAME': 'shop',
         'USER': 'root',
         'PASSWORD': 'zkyr1006',
-        # 'HOST': '111.207.68.150',
-        'HOST': '192.168.1.137',
+        'HOST': '111.207.68.150',
+        # 'HOST': '192.168.1.137',
         'PORT': '3306',
     }
 }
