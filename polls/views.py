@@ -6,15 +6,13 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
-from django.views.decorators.cache import cache_page
-
 
 # #
 #     问题索引页——展示最近的几个投票问题。
 #     问题详情页——展示某个投票的问题和不带结果的选项列表。
 #     问题结果页——展示某个投票的结果。
 #     投票处理器——用于响应用户为某个问题的特定选项投票的操作。
-@cache_page(60 * 15)  # 秒数，这里指缓存 15 分钟，
+
 def index(request):
     last_question_list = Question.objects.order_by('-pub_date')[:10]
     # template = loader.get_template('polls/index.html')
@@ -31,7 +29,6 @@ def index(request):
     # 需要用到它的话，就需要保持 HttpResponse 的导入。
 
 
-@cache_page(60 * 15)  # 秒数，这里指缓存 15 分钟，
 def detail(request, question_id):
     # try:
     #     question= Question.objects.get(pk= question_id)
@@ -50,11 +47,8 @@ def detail(request, question_id):
 
 
 def vote(request, question_id):
-    # Set a session value:
-    # request.session["has_voted"] = False
     question = get_object_or_404(Question, pk=question_id)
     try:
-        # if request.session.get():
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
         # redisplay the question voting form.
