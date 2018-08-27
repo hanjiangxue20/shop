@@ -23,3 +23,5 @@ def task_test(request):
     # tasks.myMail.delay()
     print("async task res", res.get())
     return HttpResponse('res %s' % res.get())
+
+
