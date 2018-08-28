@@ -63,11 +63,22 @@ def myMail():
 
 
 # @periodic_task(run_every=3)  #3秒   定时周期任务：每三秒
-# @periodic_task(run_every=datetime.timedelta(hours=0,minutes=0,seconds=3))  #3秒   定时周期任务：每三秒
+@periodic_task(run_every=datetime.timedelta(hours=0,minutes=0,seconds=3))  #3秒   定时周期任务：每三秒
 # @periodic_task(run_every=crontab(minute='55',hour=20)) #定时：20:55分
-@periodic_task(run_every=crontab(minute='*/2')) #没隔2分钟=crontab(minute='0-59/2')  这个/号不是除以的意思。相当与range的第3个参数
+# @periodic_task(run_every=crontab(minute='*/2')) #没隔2分钟=crontab(minute='0-59/2')  这个/号不是除以的意思。相当与range的第3个参数
 def some_task():
     print('periodic task test!')
     # sleep(5)
     print('success:{}'.format(time.ctime()))
+    return True
+
+@periodic_task(run_every=crontab(minute=0, hour=0, day_of_week='0-4',))  #工作日9点
+def say_hello():
+    print('Good morning!')
+    send_mail('早上好',
+              '',
+              settings.EMAIL_FROM,
+              ['2469257690@qq.com', ],
+              html_message='<h2>早上好！工作日愉快..</h2>'
+              )
     return True

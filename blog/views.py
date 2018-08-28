@@ -22,6 +22,11 @@ def task_test(request):
     print("start running task")
     # tasks.myMail.delay()
     print("async task res", res.get())
-    return HttpResponse('res %s' % res.get())
+    task_id = res.id
+    task_status = res.status
+    task_result = res.get()
 
-
+    content = {'task_id': task_id, 'task_status': task_status, 'task_result': task_result}
+    print(task_id, task_status, task_result)
+    # return HttpResponse('res %s' % res.get())
+    return HttpResponse(json.dumps(content), content_type='application/json')
