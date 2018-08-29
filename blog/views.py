@@ -17,6 +17,9 @@ def BlogilView(request):
     return HttpResponse(json.dumps(list(blog)), content_type='application/json')
 
 
+
+
+
 def task_test(request):
     res = tasks.add.delay(4, 5)
     print("start running task")
