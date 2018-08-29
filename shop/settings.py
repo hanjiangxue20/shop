@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-# utf-8
+# -*-coding:utf-8-*-
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,7 +26,7 @@ SECRET_KEY = 'jl68sas7+w)&$o(!r&s#f5e70g83#if=wtvpb7*=vn$5f+3t)t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# 调试工具
+# debug tools
 # DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 ALLOWED_HOSTS = ['*']
@@ -39,7 +40,7 @@ CELERY_TIMEZONE = 'Asia/Shanghai'
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
 # CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
 # CELERY_RESULT_BACKEND = 'redis://:zkyr1006@192.168.1.137:6379/10'#'amqp://zkyr:zkyr1006@192.168.1.137:5672/myvhost'
-CELERY_RESULT_BACKEND = 'django-db'#'redis://127.0.0.1:6379/0'  # 'redis://localhost'#  # 'django-cache'
+CELERY_RESULT_BACKEND = 'django-db'# 'redis://localhost'#  # 'django-cache'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -56,7 +57,8 @@ INSTALLED_APPS = [
     # 'debug_toolbar.apps.DebugToolbarConfig',  # 调试工具App
     # 'users',#用户注册系统
     'djcelery',
-    'django_celery_results',
+    'django_celery_results',  #结果backend存储
+    'django_celery_beat',  #periodic tasks
     'df_user',
     'df_goods',
     'tinymce',

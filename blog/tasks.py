@@ -85,4 +85,14 @@ def say_hello():
               )
     # sleep(2)
     print('send email success!')
+
+@periodic_task(run_every=crontab(minute=0, hour=0, day_of_week='0-4', ))  # 工作日9点
+def say_hello():
+    print('Good morning!')
+    send_mail('早上好',
+              '',
+              settings.EMAIL_FROM,
+              ['2469257690@qq.com', ],
+              html_message='<h2>早上好！工作日愉快..</h2>'
+              )
     return True

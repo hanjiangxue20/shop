@@ -26,7 +26,7 @@ app = Celery('shop')
 #              broker='amqp://zkyr:zkyr1006@192.168.1.137:5672/myvhost',
 #              backend='redis://:zkyr1006@127.0.0.1:6379/10',
 #              )
-app.config_from_object('django.conf:settings',namespace='CELERY')  # Load task modules from all registered Django app configs.
+app.config_from_object('django.conf:settings')  # Load task modules from all registered Django app configs.
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
 
