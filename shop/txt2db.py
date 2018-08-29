@@ -39,7 +39,6 @@ def main():
     # 以上四行 也可以用 列表解析 写成下面这样
     # BlogList = [Blog(title=line.split('****')[0], content=line.split('****')[1]) for line in f]
     Author.objects.bulk_create(AuthorList)
-
 #
 # if __name__ == '__main__':
 #     main()
