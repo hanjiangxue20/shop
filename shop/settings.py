@@ -124,7 +124,7 @@ CACHES = {
             # "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds  套接字超时  socket 建立连接超时设置
             # "SOCKET_TIMEOUT": 5,  # in seconds  连接建立后的读写操作超时设置
             # "IGNORE_EXCEPTIONS": True,# redis 只作为缓存使用, 当它关闭时如果你不希望触发异常  忽略连接异常
-            # "PASSWORD": "zkyr1006"
+            "PASSWORD": "zkyr1006"
         }
     }
 }
