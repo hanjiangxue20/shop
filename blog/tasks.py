@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 # -*-coding:utf-8-*-
 # Author: 2038770992qq.com
-from __future__ import absolute_import
-
+from __future__ import absolute_import, unicode_literals
 import datetime
 import time
+
 
 from celery.schedules import crontab
 from celery.task import periodic_task
@@ -71,6 +71,7 @@ def some_task():
     # sleep(5)
     print('success:{}'.format(time.ctime()))
     return True
+
 
 
 @periodic_task(run_every=crontab(minute=9, hour=14, day_of_week='0-4', ))  # 工作日9点

@@ -32,3 +32,14 @@ def task_test(request):
     # return HttpResponse('res %s' % res.get())
     return HttpResponse(json.dumps(content), content_type='application/json')
 
+
+def test_cookie(request):
+    print(request.COOKIES.get('id'))  # 获取cookie
+    if 'id' in request.COOKIES:
+        cookie_id = request.COOKIES['id']
+        return HttpResponse('Got cookie with {0}'.format(cookie_id))
+    else:
+        resp = HttpResponse('No id cookie! Sending cookie to client')
+        resp.set_cookie('id', '454')  # 设置cookie
+        resp.delete_cookie('id')
+        return resp
